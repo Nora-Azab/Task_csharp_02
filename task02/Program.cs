@@ -19,6 +19,7 @@ class NumberMenu
         Console.WriteLine(" F - Find a number");
         Console.WriteLine(" C - Clear the whole list");
         Console.WriteLine(" G - Add a group of numbers");
+        Console.WriteLine(" O - Sort the numbers");
         Console.WriteLine(" Q - Quit");
         Console.WriteLine("=============================");
         Console.Write("Enter your choice: ");
@@ -175,7 +176,7 @@ class NumberMenu
         }
     }
 
-    // ── g : add group of integers 
+    //add group of integers 
     static void AddGroup()
     {
         Console.WriteLine("\nEnter numbers separated by spaces like : 5 12 7 3");
@@ -220,8 +221,35 @@ class NumberMenu
         Console.WriteLine($"\n  {addedCount} numbers added, {failedCount} skipped \n");
     }
 
+    //sort numbers "asc" => [Bubble Sort]
+    static void SortNumbers()
+    {
+        if (numbers.Count == 0)
+        {
+            Console.WriteLine("\nthe list is empty\n");
+            return;
+        }
 
-    // ── C : Clear the list 
+        //Bubble Sort => ascending 
+        for (int i = 0; i < numbers.Count - 1; i++)
+        {
+            for (int j = 0; j < numbers.Count - 1 - i; j++)
+            {
+                if (numbers[j] > numbers[j + 1])
+                {
+                    // swap
+                    int temp = numbers[j];
+                    numbers[j] = numbers[j + 1];
+                    numbers[j + 1] = temp;
+                }
+            }
+        }
+
+        Console.WriteLine("\n   List sorted in ascending order\n");
+        PrintNumbers();
+    }
+
+    //clear the list 
     static void ClearList()
     {
         numbers.Clear();
@@ -271,6 +299,9 @@ class NumberMenu
                     break;
                 case 'g':
                     AddGroup();
+                    break;
+                case 'o':
+                    SortNumbers(); 
                     break;
                 case 'q': 
                     Console.WriteLine("\nGoodbye"); 
