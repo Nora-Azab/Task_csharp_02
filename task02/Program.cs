@@ -21,6 +21,7 @@ class NumberMenu
         Console.WriteLine(" G - Add a group of numbers");
         Console.WriteLine(" O - Sort the numbers");
         Console.WriteLine(" U - Display unique numbers");
+        Console.WriteLine(" W - Swap two numbers in the list");
         Console.WriteLine(" Q - Quit");
         Console.WriteLine("=============================");
         Console.Write("Enter your choice: ");
@@ -291,6 +292,59 @@ class NumberMenu
         Console.Write("]\n");
 
     }
+
+    static void SwapNumbers()
+    {
+        if (numbers.Count < 2)
+        {
+            Console.WriteLine("\nneed  2 numbers to swap at least\n");
+            return;
+        }
+
+        PrintNumbers();
+
+        int[] indexes = new int[2];
+        string[] prompts = { "first", "second" };
+
+        // ===============================
+        for (int i = 0; i < 2; i++)
+        {
+            while (true)
+            {
+                Console.Write($"Enter the index of the {prompts[i]} number (or 'q' to cancel): ");
+                string input = Console.ReadLine();
+
+                if (input != null && input.Trim().ToLower() == "q")
+                {
+                    Console.WriteLine("Cancelled\n");
+                    return;
+                }
+
+                if (int.TryParse(input, out indexes[i]) && indexes[i] >= 1 && indexes[i] <= numbers.Count)
+                    break;
+                else
+                    Console.WriteLine($"   Enter a number between 1 and {numbers.Count}   ");
+            }
+        }
+
+        //=================================
+        if (indexes[0] == indexes[1])
+        {
+            Console.WriteLine("\ntwo indexs are the same\n");
+            return;
+        }
+
+        //======================================================
+        int i1 = indexes[0] - 1;
+        int i2 = indexes[1] - 1;
+
+        int temp = numbers[i1];
+        numbers[i1] = numbers[i2];
+        numbers[i2] = temp;
+
+        Console.WriteLine($"\n    two position are swapped successfully   \n");
+        PrintNumbers();
+    }
     //clear the list 
     static void ClearList()
     {
@@ -347,6 +401,9 @@ class NumberMenu
                     break;
                 case 'u':
                     DisplayUnique();
+                    break;
+                case 'w': 
+                    SwapNumbers();
                     break;
                 case 'q': 
                     Console.WriteLine("\nGoodbye"); 
