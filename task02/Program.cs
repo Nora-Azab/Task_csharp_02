@@ -20,6 +20,7 @@ class NumberMenu
         Console.WriteLine(" C - Clear the whole list");
         Console.WriteLine(" G - Add a group of numbers");
         Console.WriteLine(" O - Sort the numbers");
+        Console.WriteLine(" U - Display unique numbers");
         Console.WriteLine(" Q - Quit");
         Console.WriteLine("=============================");
         Console.Write("Enter your choice: ");
@@ -249,6 +250,47 @@ class NumberMenu
         PrintNumbers();
     }
 
+    //display the list unique
+    static void DisplayUnique()
+    {
+        if (numbers.Count == 0)
+        {
+            Console.WriteLine("\nthe list is empty\n");
+            return;
+        }
+
+        List<int> unique = new List<int>();
+
+        for (int i = 0; i < numbers.Count; i++)
+        {
+            bool exists = false;
+
+            for (int j = 0; j < unique.Count; j++)
+            {
+                if (numbers[i] == unique[j])
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists)
+                unique.Add(numbers[i]);
+        }
+
+        Console.WriteLine("\n---   Unique Numbers   ---");
+        Console.Write("\n[");
+        for (int i = 0; i < unique.Count; i++)
+        {
+            if (i == unique.Count - 1)//last one
+                Console.Write(unique[i]);
+            else
+                Console.Write($"{unique[i]} ");
+
+        }
+        Console.Write("]\n");
+
+    }
     //clear the list 
     static void ClearList()
     {
@@ -301,7 +343,10 @@ class NumberMenu
                     AddGroup();
                     break;
                 case 'o':
-                    SortNumbers(); 
+                    SortNumbers();
+                    break;
+                case 'u':
+                    DisplayUnique();
                     break;
                 case 'q': 
                     Console.WriteLine("\nGoodbye"); 
